@@ -1,6 +1,8 @@
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet, useLoaderData } from 'react-router-dom';
+import { ContactT } from './Contact';
 
 const Root = () => {
+  const contacts = useLoaderData() as ContactT[];
   return (
     <>
       <div id="sidebar">
@@ -22,12 +24,34 @@ const Root = () => {
           </form>
         </div>
         <nav>
+          {contacts.length ? (
+            <ul>
+              {contacts.map((contact) => (
+                <li key={contact.first}>
+                  <Link to={`contacts/${contact.first}`}>
+                    {contact.first || contact.last ? (
+                      <>
+                        {contact.first} {contact.last}
+                      </>
+                    ) : (
+                      <i>No Name</i>
+                    )}{' '}
+                    {contact.favorite && <span>★</span>}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>
+              <i>No contacts</i>
+            </p>
+          )}
           <ul>
             <li>
-              <a href={`/contacts/1`}>Your Name</a>
+              <Link to={`contacts/1`}>Your Name</Link>
             </li>
             <li>
-              <a href={`/contacts/2`}>Your Friend</a>
+              <Link to={`contacts/2`}>Your Name</Link>
             </li>
           </ul>
         </nav>

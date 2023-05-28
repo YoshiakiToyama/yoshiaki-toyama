@@ -1,6 +1,6 @@
 import { Form } from 'react-router-dom';
 
-type contactT = {
+export type ContactT = {
   first: string;
   last: string;
   avatar: string;
@@ -10,7 +10,7 @@ type contactT = {
 };
 
 const Contact = () => {
-  const contact: contactT = {
+  const contact: ContactT = {
     first: 'Your',
     last: 'Name',
     avatar: 'https://placekitten.com/g/200/200',
@@ -70,7 +70,7 @@ const Contact = () => {
 
 export default Contact;
 
-const Favorite = ({ contact }: { contact: contactT }) => {
+const Favorite = ({ contact }: { contact: ContactT }) => {
   let favorite = contact.favorite;
   return (
     <Form method="post">
@@ -84,3 +84,36 @@ const Favorite = ({ contact }: { contact: contactT }) => {
     </Form>
   );
 };
+
+const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
+export async function loader(): Promise<ContactT[]> {
+  await delay(3000);
+  const contacts = [
+    {
+      first: 'Your',
+      last: 'Name',
+      avatar: 'https://placekitten.com/g/200/200',
+      twitter: 'your_handle',
+      notes: 'Some notes',
+      favorite: true,
+    },
+    {
+      first: 'Your',
+      last: 'Name',
+      avatar: 'https://placekitten.com/g/200/200',
+      twitter: 'your_handle',
+      notes: 'Some notes',
+      favorite: true,
+    },
+    {
+      first: 'Your',
+      last: 'Name',
+      avatar: 'https://placekitten.com/g/200/200',
+      twitter: 'your_handle',
+      notes: 'Some notes',
+      favorite: true,
+    },
+  ];
+  return contacts;
+}
